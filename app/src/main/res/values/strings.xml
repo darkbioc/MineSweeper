@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MineSweeper</string>
+    <string name="action_settings">Settings</string>
+    <string name="rbEasy">Easy</string>
+    <string name="rbNormal">Normal</string>
+    <string name="rbHard">Hard</string>
+    <string name="rbCustom">Custom</string>
+    <string name="tvRows">Rows:</string>
+    <string name="tvColumns">Columns:</string>
+    <string name="tvBombs">Bombs:</string>
+</resources>
