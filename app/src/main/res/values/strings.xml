@@ -8,4 +8,7 @@
     <string name="tvRows">Rows:</string>
     <string name="tvColumns">Columns:</string>
     <string name="tvBombs">Bombs:</string>
+    <string name="tvSalir">Reset game?</string>
+    <string name="bYes">Yes</string>
+    <string name="bNo">No</string>
 </resources>

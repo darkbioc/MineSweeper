@@ -41,8 +41,7 @@ public class MainActivity extends AppCompatActivity
         largeText = findViewById(R.id.textView);
         ib = findViewById(R.id.imageButton);
         gridLayout = findViewById(R.id.gridLayout);
-        gridLayout.setRowCount(Singleton.sharedInstance().getNumRows());
-        gridLayout.setColumnCount(Singleton.sharedInstance().getNumCols());
+
 
 	    android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 	    setSupportActionBar(toolbar);
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity
         {
 	        @Override public void onClick(View v)
 	        {
-		        gridLayout.removeAllViews();
-				start();
+		        Intent intentR = new Intent(getApplicationContext(),Dialog.class);
+		        startActivityForResult(intentR, 4321);
 	        }
 
         });
@@ -88,11 +87,21 @@ public class MainActivity extends AppCompatActivity
 				start();
 			}
 		}
+		if (requestCode == 4321)
+		{
+			if (resultCode == RESULT_OK)
+			{
+				start();
+			}
+		}
 	}
 
 
 	private void start()
 	{
+		gridLayout.removeAllViews();
+		gridLayout.setRowCount(Singleton.sharedInstance().getNumRows());
+		gridLayout.setColumnCount(Singleton.sharedInstance().getNumCols());
 		gameOver=false;
 		ib.setBackground(getDrawable(R.drawable.msface));
 		numBombs = Singleton.sharedInstance().getNumBombs();

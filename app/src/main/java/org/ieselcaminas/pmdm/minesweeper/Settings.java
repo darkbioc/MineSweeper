@@ -19,6 +19,9 @@ public class Settings extends AppCompatActivity
 	EditText etBombs;
 	FloatingActionButton fab;
 	FrameLayout fl;
+	int numCols = 20;
+	int numRows = 20;
+	int numBombs = 75;
 
 	@Override protected void onCreate(Bundle savedInstanceState)
 	{
@@ -30,6 +33,7 @@ public class Settings extends AppCompatActivity
 		fl = findViewById(R.id.frameLayout);
 		fl.setVisibility(View.INVISIBLE);
 		rGroup = findViewById(R.id.radioGroup);
+		rGroup.check(R.id.radioButton2);
 		etCols = findViewById(R.id.etCols);
 		etRows = findViewById(R.id.etRows);
 		etBombs = findViewById(R.id.etBombs);
@@ -49,21 +53,21 @@ public class Settings extends AppCompatActivity
 				switch(checkedId)
 				{
 					case R.id.radioButton:
-						Singleton.sharedInstance().setNumCols(10);
-						Singleton.sharedInstance().setNumRows(10);
-						Singleton.sharedInstance().setNumBombs(15);
+						numCols = 10;
+						numRows = 10;
+						numBombs = 15;
 						fl.setVisibility(View.INVISIBLE);
 						break;
 					case R.id.radioButton2:
-						Singleton.sharedInstance().setNumCols(20);
-						Singleton.sharedInstance().setNumRows(20);
-						Singleton.sharedInstance().setNumBombs(75);
+						numCols = 20;
+						numRows = 20;
+						numBombs = 75;
 						fl.setVisibility(View.INVISIBLE);
 						break;
 					case R.id.radioButton3:
-						Singleton.sharedInstance().setNumCols(30);
-						Singleton.sharedInstance().setNumRows(30);
-						Singleton.sharedInstance().setNumBombs(150);
+						numCols = 30;
+						numRows = 30;
+						numBombs = 150;
 						fl.setVisibility(View.INVISIBLE);
 						break;
 					case R.id.radioButton4:
@@ -83,8 +87,14 @@ public class Settings extends AppCompatActivity
 					Singleton.sharedInstance().setNumRows((Integer.parseInt(etRows.getText().toString())));
 					Singleton.sharedInstance().setNumBombs((Integer.parseInt(etBombs.getText().toString())));
 				}
-				Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-				setResult(1234,intent);
+				else
+				{
+					Singleton.sharedInstance().setNumCols(numCols);
+					Singleton.sharedInstance().setNumRows(numRows);
+					Singleton.sharedInstance().setNumBombs(numBombs);
+				}
+				Intent intent = getIntent();
+				setResult(RESULT_OK,intent);
 				finish();
 			}
 		});
