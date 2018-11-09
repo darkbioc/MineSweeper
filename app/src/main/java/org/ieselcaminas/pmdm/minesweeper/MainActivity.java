@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity
         gridLayout = findViewById(R.id.gridLayout);
 
 
+
 	    android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
 	    setSupportActionBar(toolbar);
 
@@ -105,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 		gameOver=false;
 		ib.setBackground(getDrawable(R.drawable.msface));
 		numBombs = Singleton.sharedInstance().getNumBombs();
-		largeText.setText(""+numBombs);
+		largeText.setText("Bombs: "+numBombs);
 		board = new MineButton[Singleton.sharedInstance().getNumRows()][Singleton.sharedInstance().getNumCols()];
 		bombMatrix = new BombMatrix();
 		bombMatrix.printMatrix();
@@ -210,12 +211,12 @@ public class MainActivity extends AppCompatActivity
 	public void putFlag()
 	{
 		numBombs--;
-		largeText.setText(""+numBombs);
+		largeText.setText("Bombs: "+numBombs);
 	}
 	public  void takeFlag()
 	{
 		numBombs++;
-		largeText.setText(""+numBombs);
+		largeText.setText("Bombs: "+numBombs);
 	}
 
 	public void checkWin()

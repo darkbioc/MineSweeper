@@ -8,8 +8,8 @@ import android.widget.FrameLayout;
 
 public class MineButton extends android.support.v7.widget.AppCompatImageButton
 {
-	public static final int WIDTH=20;
-	public static final int HEIGHT=20;
+	public static final int WIDTH=23;
+	public static final int HEIGHT=23;
 	private int row, col;
 	private ButtonState state;
 	public MainActivity ma;
