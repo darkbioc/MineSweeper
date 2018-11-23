@@ -37,19 +37,22 @@
             android:key="rows"
             android:summary="@string/sRowsSummary"
             android:title="@string/sRows"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:defaultValue="20"/>
         <EditTextPreference
             android:dialogTitle="@string/sColsDialog"
             android:key="cols"
             android:summary="@string/sColsSummary"
             android:title="@string/sCols"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:defaultValue="20"/>
         <EditTextPreference
             android:dialogTitle="@string/sCBombsDialog"
             android:key="bombs"
             android:summary="@string/sCBombsSummary"
             android:title="@string/sCBombs"
-            android:inputType="number"/>
+            android:inputType="number"
+            android:defaultValue="50"/>
 
     </PreferenceCategory>
 
