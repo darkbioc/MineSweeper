@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MineSweeper</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="rbEasy">Fácil</string>
+    <string name="rbNormal">Normal</string>
+    <string name="rbHard">Difícil</string>
+    <string name="rbCustom">Personalizado</string>
+    <string name="tvRows">Filas:</string>
+    <string name="tvColumns">Columnas:</string>
+    <string name="tvBombs">Bombas:</string>
+    <string name="tvSalir">¿Reiniciar juego?</string>
+    <string name="bYes">Sí</string>
+    <string name="bNo">No</string>
+    <string name="configBoard">Tablero</string>
+    <string name="sSize">Tamaño</string>
+    <string name="sSizeSummary">Elige un tamaño</string>
+    <string name="sSizeDialog">Elige el tamaño del tablero</string>
+    <string name="sBombs">Ratio de bombas</string>
+    <string name="sBombsSummary">Elige el ratio de bombas del tablero</string>
+    <string name="sBombsRatio">Elige un ratio</string>
+    <string name="sCounter">Muestra las bombas restantes</string>
+    <string name="sCounterSummary">Muestra/Oculta el número de bombas restantes en el tablero</string>
+    <string name="settingsCustom">Tablero personalizado (¡Sólo si \"Personalizado\" está marcado!)</string>
+    <string name="sRowsDialog">Introduce el número de filas</string>
+    <string name="sRowsSummary">Número de filas del tablero</string>
+    <string name="sRows">Filas</string>
+    <string name="sColsDialog">Introduce el número de columnas</string>
+    <string name="sColsSummary">Número de columnas en el tablero</string>
+    <string name="sCols">Columnas</string>
+    <string name="sCBombsDialog">Introduce el ratio de bombas (1–99)</string>
+    <string name="sCBombsSummary">Ratio de bombas en el tablero</string>
+    <string name="sCBombs">Bombas</string>
+    <string name="sTheme">Tema oscuro</string>
+    <string name="sThemeSummary">Activa el tema oscuro</string>
+    <string name="tWin">VICTORIA!</string>
+    <string name="toastWarning">¡Ratio de bombas invalido! Configurando por defecto</string>
+    <string name="tvBombsCounter">Bombas:</string>
+    <string name="tGameOver">FIN DEL JUEGO</string>
+    <string name="sizeS">Pequeño</string>
+    <string name="sizeM">Medio</string>
+    <string name="sizeL">Grande</string>
+    <string name="custom">Personalizado</string>
+</resources>

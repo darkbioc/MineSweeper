@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="difs">
+        <item>@string/sizeS</item>
+        <item>@string/sizeM</item>
+        <item>@string/sizeL</item>
+        <item>@string/custom</item>
+    </string-array>
+    <string-array name="difs2">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+    <string-array name="bombs">
+        <item>25%</item>
+        <item>50%</item>
+        <item>75%</item>
+        <item>@string/custom</item>
+    </string-array>
+    <string-array name="bombs2">
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>0</item>
+    </string-array>
+</resources>

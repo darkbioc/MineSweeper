@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <PreferenceCategory android:title="@string/configBoard">
+
+        <ListPreference
+            android:key="dif"
+            android:title="@string/sSize"
+            android:summary="@string/sSizeSummary"
+            android:dialogTitle="@string/sSizeDialog"
+            android:entries="@array/difs"
+            android:entryValues="@array/difs2"/>
+
+        <ListPreference
+            android:key="ratio"
+            android:title="@string/sBombs"
+            android:summary="@string/sBombsSummary"
+            android:dialogTitle="@string/sBombsRatio"
+            android:entries="@array/bombs"
+            android:entryValues="@array/bombs2"/>
+
+        <CheckBoxPreference
+            android:title="@string/sCounter"
+            android:key="counter"
+            android:summary="@string/sCounterSummary"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/settingsCustom">
+
+        <EditTextPreference
+            android:dialogTitle="@string/sRowsDialog"
+            android:key="rows"
+            android:summary="@string/sRowsSummary"
+            android:title="@string/sRows"
+            android:inputType="number"/>
+        <EditTextPreference
+            android:dialogTitle="@string/sColsDialog"
+            android:key="cols"
+            android:summary="@string/sColsSummary"
+            android:title="@string/sCols"
+            android:inputType="number"/>
+        <EditTextPreference
+            android:dialogTitle="@string/sCBombsDialog"
+            android:key="bombs"
+            android:summary="@string/sCBombsSummary"
+            android:title="@string/sCBombs"
+            android:inputType="number"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="">
+    <CheckBoxPreference
+        android:title="@string/sTheme"
+        android:key="theme"
+        android:summary="@string/sThemeSummary"/>
+    </PreferenceCategory>
+</PreferenceScreen>

@@ -1,12 +1,18 @@
 package org.ieselcaminas.pmdm.minesweeper;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,6 +21,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.GridLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity
@@ -23,6 +30,7 @@ public class MainActivity extends AppCompatActivity
     GridLayout gridLayout;
     FrameLayout frameLayout;
 
+	SharedPreferences pref;
 
 
 	private boolean gameOver=false;
@@ -30,14 +38,33 @@ public class MainActivity extends AppCompatActivity
     TextView largeText;
     Button ib;
     int numBombs;
-
+    int themeApplied;
+	int themeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
+	    pref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+	    boolean theme = pref.getBoolean("theme",false);
+	    if(theme)
+	    {
+	    	setTheme(R.style.DarkTheme);
+	    }
+	    else
+	    {
+	        setTheme(R.style.AppTheme);
+	    }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if (savedInstanceState != null)
+        {
+        	themeApplied = savedInstanceState.getInt("theme");
+        }
+        else
+        {
+	        themeApplied = 0;
+        }
         largeText = findViewById(R.id.textView);
         ib = findViewById(R.id.imageButton);
         gridLayout = findViewById(R.id.gridLayout);
@@ -73,21 +100,16 @@ public class MainActivity extends AppCompatActivity
 		switch (item.getItemId())
 		{
 			case R.id.action_settings:Intent intent = new Intent(getApplicationContext(),Settings.class);
-				startActivityForResult(intent, 1234);
+				startActivity(intent);
 			default:return super.onOptionsItemSelected(item);
+
+
 		}
 	}
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent resultIntent)
 	{
-		if (requestCode == 1234)
-		{
-			if (resultCode == RESULT_OK)
-			{
-				start();
-			}
-		}
 		if (requestCode == 4321)
 		{
 			if (resultCode == RESULT_OK)
@@ -106,7 +128,7 @@ public class MainActivity extends AppCompatActivity
 		gameOver=false;
 		ib.setBackground(getDrawable(R.drawable.msface));
 		numBombs = Singleton.sharedInstance().getNumBombs();
-		largeText.setText("Bombs: "+numBombs);
+		largeText.setText(getString(R.string.tvBombsCounter)+numBombs);
 		board = new MineButton[Singleton.sharedInstance().getNumRows()][Singleton.sharedInstance().getNumCols()];
 		bombMatrix = new BombMatrix();
 		bombMatrix.printMatrix();
@@ -164,7 +186,6 @@ public class MainActivity extends AppCompatActivity
 	{
 		board[r][c].setState(ButtonState.OPEN);
 		board[r][c].setVisibility(View.INVISIBLE);
-		Log.d("LOL","dfghghstr");
 		if(bombMatrix.getValue(r ,c) == 0 )
 		{
 			for(int nr=-1; nr <= 1; nr++)
@@ -191,7 +212,7 @@ public class MainActivity extends AppCompatActivity
 	public void gameOver()
 	{
 		gameOver=true;
-		largeText.setText("GAME OVER");
+		largeText.setText(R.string.tGameOver);
 		ib.setBackground(getDrawable(R.drawable.msfacelose));
 		for (int i = 0; i < Singleton.sharedInstance().getNumRows(); i++)
 		{
@@ -211,12 +232,12 @@ public class MainActivity extends AppCompatActivity
 	public void putFlag()
 	{
 		numBombs--;
-		largeText.setText("Bombs: "+numBombs);
+		largeText.setText(getString(R.string.tvBombsCounter)+numBombs);
 	}
 	public  void takeFlag()
 	{
 		numBombs++;
-		largeText.setText("Bombs: "+numBombs);
+		largeText.setText(getString(R.string.tvBombsCounter)+numBombs);
 	}
 
 	public void checkWin()
@@ -250,13 +271,120 @@ public class MainActivity extends AppCompatActivity
 				}
 			}
 		}
-		largeText.setText("WIN!");
+		largeText.setText(R.string.tWin);
 		ib.setBackground(getDrawable(R.drawable.msfacewin));
 		gameOver=true;
 	}
 	public boolean isGameOver()
 	{
 		return gameOver;
+	}
+
+	@Override protected void onResume()
+	{
+		super.onResume();
+		boolean darkTheme=pref.getBoolean("theme", false);
+		boolean showCounter=pref.getBoolean("counter", true);
+		//Opciones
+		int dif=Integer.parseInt(pref.getString("dif", "1"));
+		int ratio=Integer.parseInt(pref.getString("ratio", "50"));
+		//Customs
+		int rows=Integer.parseInt(pref.getString("rows", "20"));
+		int cols=Integer.parseInt(pref.getString("cols", "20"));
+		int bombs=Integer.parseInt(pref.getString("bombs", "50"));
+		if(dif != 4)
+		{
+			switch(dif)
+			{
+				case 0:
+					Singleton.sharedInstance().setNumRows(10);
+					Singleton.sharedInstance().setNumCols(10);
+					break;
+				case 1:
+					Singleton.sharedInstance().setNumRows(25);
+					Singleton.sharedInstance().setNumCols(25);
+					break;
+				case 2:
+					Singleton.sharedInstance().setNumRows(35);
+					Singleton.sharedInstance().setNumCols(35);
+					break;
+			}
+		}
+		else
+		{
+			Singleton.sharedInstance().setNumRows(rows);
+			Singleton.sharedInstance().setNumCols(cols);
+		}
+		if(ratio != 0)
+		{
+			int rat;
+			int cells=Singleton.sharedInstance().getNumRows() * Singleton.sharedInstance().getNumCols();
+			switch(ratio)
+			{
+				case 25:
+					rat=(cells / 100) * 25;
+					Singleton.sharedInstance().setNumBombs(rat);
+					break;
+				case 50:
+					rat=(cells / 100) * 50;
+					Singleton.sharedInstance().setNumBombs(rat);
+					break;
+				case 75:
+					rat=(cells / 100) * 75;
+					Singleton.sharedInstance().setNumBombs(rat);
+					break;
+			}
+		}
+		else
+		{
+			int cells=Singleton.sharedInstance().getNumRows() * Singleton.sharedInstance().getNumRows();
+			int rat;
+			if(bombs > 0 && bombs < 100)
+			{
+				rat=(cells / 100) * bombs;
+				Singleton.sharedInstance().setNumBombs(rat);
+			}
+			else
+			{
+				Toast.makeText(getApplicationContext(), R.string.toastWarning, Toast.LENGTH_SHORT).show();
+				rat=(cells / 100) * 50;
+				Singleton.sharedInstance().setNumBombs(rat);
+			}
+		}
+
+		if(showCounter)
+		{
+			largeText.setVisibility(View.VISIBLE);
+		}
+		else
+		{
+			largeText.setVisibility(View.INVISIBLE);
+		}
+
+		if(darkTheme)
+		{
+			themeID = R.style.DarkTheme;
+		}
+		else
+		{
+			themeID = R.style.AppTheme;
+		}
+		if(themeApplied != themeID)
+		{
+			themeApplied = themeID;
+			recreate();
+		}
+
+
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		savedInstanceState.putInt("theme", themeID);
+		// Always call the superclass so it can save the view hierarchy state
+		super.onSaveInstanceState(savedInstanceState);
+
 	}
 
 }
