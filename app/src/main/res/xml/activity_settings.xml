@@ -10,7 +10,8 @@
             android:summary="@string/sSizeSummary"
             android:dialogTitle="@string/sSizeDialog"
             android:entries="@array/difs"
-            android:entryValues="@array/difs2"/>
+            android:entryValues="@array/difs2"
+            android:defaultValue="1"/>
 
         <ListPreference
             android:key="ratio"
@@ -18,12 +19,14 @@
             android:summary="@string/sBombsSummary"
             android:dialogTitle="@string/sBombsRatio"
             android:entries="@array/bombs"
-            android:entryValues="@array/bombs2"/>
+            android:entryValues="@array/bombs2"
+            android:defaultValue="50"/>
 
         <CheckBoxPreference
             android:title="@string/sCounter"
             android:key="counter"
-            android:summary="@string/sCounterSummary"/>
+            android:summary="@string/sCounterSummary"
+            android:defaultValue="true"/>
 
     </PreferenceCategory>
 

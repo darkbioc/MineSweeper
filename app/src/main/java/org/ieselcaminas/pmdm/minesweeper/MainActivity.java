@@ -327,7 +327,7 @@ public class MainActivity extends AppCompatActivity
 		compareEnd[3] = cols;
 		compareEnd[4] = bombs;
 
-		if(dif != 4)
+		if(dif != 3)
 		{
 			switch(dif)
 			{
