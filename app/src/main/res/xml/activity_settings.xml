@@ -20,7 +20,7 @@
             android:dialogTitle="@string/sBombsRatio"
             android:entries="@array/bombs"
             android:entryValues="@array/bombs2"
-            android:defaultValue="50"/>
+            android:defaultValue="15"/>
 
         <CheckBoxPreference
             android:title="@string/sCounter"
@@ -52,7 +52,7 @@
             android:summary="@string/sCBombsSummary"
             android:title="@string/sCBombs"
             android:inputType="number"
-            android:defaultValue="50"/>
+            android:defaultValue="15"/>
 
     </PreferenceCategory>
 

@@ -319,7 +319,7 @@ public class MainActivity extends AppCompatActivity
 		//Customs
 		rows=Integer.parseInt(pref.getString("rows", "20"));
 		cols=Integer.parseInt(pref.getString("cols", "20"));
-		bombs=Integer.parseInt(pref.getString("bombs", "50"));
+		bombs=Integer.parseInt(pref.getString("bombs", "15"));
 
 		compareEnd[0] = dif;
 		compareEnd[1] = ratio;
@@ -336,8 +336,8 @@ public class MainActivity extends AppCompatActivity
 					Singleton.sharedInstance().setNumCols(10);
 					break;
 				case 1:
-					Singleton.sharedInstance().setNumRows(25);
-					Singleton.sharedInstance().setNumCols(25);
+					Singleton.sharedInstance().setNumRows(20);
+					Singleton.sharedInstance().setNumCols(20);
 					break;
 				case 2:
 					Singleton.sharedInstance().setNumRows(35);
@@ -356,16 +356,16 @@ public class MainActivity extends AppCompatActivity
 			int cells=Singleton.sharedInstance().getNumRows() * Singleton.sharedInstance().getNumCols();
 			switch(ratio)
 			{
+				case 10:
+					rat=(cells* 10)/100;
+					Singleton.sharedInstance().setNumBombs(rat);
+					break;
+				case 15:
+					rat=(cells * 15)/100;
+					Singleton.sharedInstance().setNumBombs(rat);
+					break;
 				case 25:
-					rat=(cells / 100) * 25;
-					Singleton.sharedInstance().setNumBombs(rat);
-					break;
-				case 50:
-					rat=(cells / 100) * 50;
-					Singleton.sharedInstance().setNumBombs(rat);
-					break;
-				case 75:
-					rat=(cells / 100) * 75;
+					rat=(cells * 25)/100;
 					Singleton.sharedInstance().setNumBombs(rat);
 					break;
 			}
@@ -376,13 +376,13 @@ public class MainActivity extends AppCompatActivity
 			int rat;
 			if(bombs > 0 && bombs < 100)
 			{
-				rat=(cells / 100) * bombs;
+				rat=(cells * bombs)/100;
 				Singleton.sharedInstance().setNumBombs(rat);
 			}
 			else
 			{
 				Toast.makeText(getApplicationContext(), R.string.toastWarning, Toast.LENGTH_SHORT).show();
-				rat=(cells / 100) * 50;
+				rat=(cells * 15)/100;
 				Singleton.sharedInstance().setNumBombs(rat);
 			}
 		}

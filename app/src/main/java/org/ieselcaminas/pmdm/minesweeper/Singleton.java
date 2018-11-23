@@ -9,7 +9,7 @@ public class Singleton {
     private Singleton() {
         numCols = 20;
         numRows = 20;
-        numBombs = 200;
+        numBombs = 90;
     }
 
     public static Singleton sharedInstance() {
