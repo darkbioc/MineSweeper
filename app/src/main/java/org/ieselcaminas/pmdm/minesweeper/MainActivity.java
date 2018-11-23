@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import java.util.Arrays;
+
 public class MainActivity extends AppCompatActivity
 {
     private MineButton[][] board;
@@ -40,6 +42,17 @@ public class MainActivity extends AppCompatActivity
     int numBombs;
     int themeApplied;
 	int themeID;
+
+	//settings variables
+	boolean darkTheme;
+	boolean showCounter;
+	int dif;
+	int ratio;
+	int rows;
+	int cols;
+	int bombs;
+	int[] compareStart = new int[5];
+	int[] compareEnd = new int[5];
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -60,10 +73,12 @@ public class MainActivity extends AppCompatActivity
         if (savedInstanceState != null)
         {
         	themeApplied = savedInstanceState.getInt("theme");
+        	compareStart = savedInstanceState.getIntArray("init");
         }
         else
         {
 	        themeApplied = 0;
+	        compareStart = new int[5];
         }
         largeText = findViewById(R.id.textView);
         ib = findViewById(R.id.imageButton);
@@ -99,7 +114,19 @@ public class MainActivity extends AppCompatActivity
 	{
 		switch (item.getItemId())
 		{
-			case R.id.action_settings:Intent intent = new Intent(getApplicationContext(),Settings.class);
+			case R.id.action_settings:
+				dif=Integer.parseInt(pref.getString("dif", "1"));
+				ratio=Integer.parseInt(pref.getString("ratio", "50"));
+				//Customs
+				rows=Integer.parseInt(pref.getString("rows", "20"));
+				cols=Integer.parseInt(pref.getString("cols", "20"));
+				bombs=Integer.parseInt(pref.getString("bombs", "50"));
+				compareStart[0] = dif;
+				compareStart[1] = ratio;
+				compareStart[2] = rows;
+				compareStart[3] = cols;
+				compareStart[4] = bombs;
+				Intent intent = new Intent(getApplicationContext(),Settings.class);
 				startActivity(intent);
 			default:return super.onOptionsItemSelected(item);
 
@@ -283,15 +310,23 @@ public class MainActivity extends AppCompatActivity
 	@Override protected void onResume()
 	{
 		super.onResume();
-		boolean darkTheme=pref.getBoolean("theme", false);
-		boolean showCounter=pref.getBoolean("counter", true);
+		darkTheme=pref.getBoolean("theme", false);
+
 		//Opciones
-		int dif=Integer.parseInt(pref.getString("dif", "1"));
-		int ratio=Integer.parseInt(pref.getString("ratio", "50"));
+		showCounter=pref.getBoolean("counter", true);
+		dif=Integer.parseInt(pref.getString("dif", "1"));
+		ratio=Integer.parseInt(pref.getString("ratio", "50"));
 		//Customs
-		int rows=Integer.parseInt(pref.getString("rows", "20"));
-		int cols=Integer.parseInt(pref.getString("cols", "20"));
-		int bombs=Integer.parseInt(pref.getString("bombs", "50"));
+		rows=Integer.parseInt(pref.getString("rows", "20"));
+		cols=Integer.parseInt(pref.getString("cols", "20"));
+		bombs=Integer.parseInt(pref.getString("bombs", "50"));
+
+		compareEnd[0] = dif;
+		compareEnd[1] = ratio;
+		compareEnd[2] = rows;
+		compareEnd[3] = cols;
+		compareEnd[4] = bombs;
+
 		if(dif != 4)
 		{
 			switch(dif)
@@ -352,6 +387,11 @@ public class MainActivity extends AppCompatActivity
 			}
 		}
 
+		if(!Arrays.equals(compareStart,compareEnd))
+		{
+			start();
+		}
+
 		if(showCounter)
 		{
 			largeText.setVisibility(View.VISIBLE);
@@ -360,6 +400,7 @@ public class MainActivity extends AppCompatActivity
 		{
 			largeText.setVisibility(View.INVISIBLE);
 		}
+
 
 		if(darkTheme)
 		{
@@ -382,6 +423,7 @@ public class MainActivity extends AppCompatActivity
 	public void onSaveInstanceState(Bundle savedInstanceState)
 	{
 		savedInstanceState.putInt("theme", themeID);
+		savedInstanceState.putIntArray("init", compareStart);
 		// Always call the superclass so it can save the view hierarchy state
 		super.onSaveInstanceState(savedInstanceState);
 
